@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef} from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import { View, Text } from 'react-native';
 import {
@@ -13,6 +13,8 @@ import { styles } from './styles';
 
 export default function App() {
   const [location, setLocation] = useState<LocationObject | null>(null);
+
+  const mapRef = useRef <MapView>(null);
 
   async function requestLocationPermission() {
     const { granted } = await requestForegroundPermissionsAsync();
@@ -41,7 +43,11 @@ export default function App() {
       timeInterval: 1000,
       distanceInterval: 1 
     }, (response) => { 
-      console.log ("NOVA LOCALIZAÇÃO", response)
+      //posicao dacamera no mapa 
+      mapRef.current?.animateCamera ({
+        pitch: 70,
+        center:  response.coords
+      })
       setLocation(response);
     })
   }, [])
@@ -50,7 +56,8 @@ export default function App() {
   <View style={styles.container}>
     {
       location && 
-    <MapView
+    <MapView 
+      ref={mapRef}
       style = {styles.map}
       initialRegion={{
         latitude: location.coords.latitude,
