@@ -45,17 +45,16 @@ export default function App() {
   // pega os pontos
  useEffect( () => { 
  async function pegarPonto(){
-  const dados = await fetchData()
-  setPontos(dados)
+  const dados = await fetchData();
+  setPontos(dados);
 }
+
 pegarPonto()
-} , [])
+}, [])
 
   useEffect(() => {
     requestLocationPermission();
   }, []);
- 
-  console.log(pontos[0].latitude);
 
   //observando rota e precisao da mesma
   useEffect(() => {
@@ -97,15 +96,16 @@ pegarPonto()
       {
           pontos.map(ponto => { 
             console.log(ponto) 
-            
-            return ( <Marker 
+          return <text> tirando erro </text>   
+            //return ( <Marker 
             //objt p passar latitude e longitude 
-          coordinate={{
-            latitude: ponto.latitude,
-            longitude: ponto.longitude,
-          }}
-          image = { require ('./assets/sinal-wifi.png')}
-          />)})
+          //coordinate={{
+            //latitude: ponto.latitude,
+           // longitude: ponto.longitude,
+          //}}
+          //image = { require ('./assets/sinal-wifi.png')}
+        //  >)
+        })
       }
       </MapView>
       }
