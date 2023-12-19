@@ -49,7 +49,7 @@ export default function App() {
   setPontos(dados)
 }
 pegarPonto()
- })
+} , [])
 
   useEffect(() => {
     requestLocationPermission();
@@ -95,13 +95,17 @@ pegarPonto()
       }}
       />
       {
-        pontos.map(ponto =>( <Marker
-          //objt p passar latitude e longitude 
+          pontos.map(ponto => { 
+            console.log(ponto) 
+            
+            return ( <Marker 
+            //objt p passar latitude e longitude 
           coordinate={{
             latitude: ponto.latitude,
             longitude: ponto.longitude,
           }}
-          />))
+          image = { require ('./assets/sinal-wifi.png')}
+          />)})
       }
       </MapView>
       }
