@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps'; 
 import { View, Text } from 'react-native';
 import {
   requestForegroundPermissionsAsync,
