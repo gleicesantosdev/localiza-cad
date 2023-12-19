@@ -13,6 +13,12 @@ Comandos Expo/ React Native para visualização do Localiza:
 
 - npx expo install react-native-maps = refere-se a observação da rota pelo marcador (marker)
 
+
+Links importantes de referência:
+- <p> Comandos para o marker react native: </p> https://github.com/react-native-maps/react-native-maps/blob/master/docs/marker.md
+- <p> Manipulação de mapa com react native e typescript </p> https://www.youtube.com/watch?v=7DY1tHHudtM
+- <p> Criando interfaces com typescript</p> //cynoteck.com/pt/blog-post/interfaces-in-typescript/
+- <p> Icone </p> https://www.flaticon.com/br/icone-gratis/sinal-wifi_81944?term=sinal+wifi&page=1&position=5&origin=search&related_id=81944 
 ##
   <div>
 <p align="center"> 
