@@ -23,14 +23,14 @@ const fetchData = async () => {
   }
 };
 
-console.log(1);
-
+//define os tipos das variaveis 
 interface Ponto {
   longitude: number;
   latitude: number;
   id: string;
 }
 
+//armazena os pontos de localização do usuário
 export default function App() {
   const [pontos, setPontos] = useState<Ponto[]>([]); // correcao da tipagem
   const [location, setLocation] = useState<LocationObject | null>(null);
@@ -39,12 +39,12 @@ export default function App() {
   // permissao p acesso de localizacao
   async function requestLocationPermission() {
     const { granted } = await requestForegroundPermissionsAsync();
-
+    //se concedida
     if (granted) {
       try {
         const currentPosition = await getCurrentPositionAsync({});
         setLocation(currentPosition);
-      } catch (error) {
+      } catch (error) { //se não concedida
         console.error('Erro ao obter a localização:', error);
       }
     } else {
@@ -52,7 +52,7 @@ export default function App() {
     }
   }
 
-  // pega pontos
+  // pega pontos da api
   useEffect(() => {
     async function pegarPonto() {
       const dados = await fetchData();
@@ -62,10 +62,12 @@ export default function App() {
     pegarPonto();
   }, []);
 
+  //pede permissão ao usuário 
   useEffect(() => {
     requestLocationPermission();
   }, []);
 
+  //observa a localização do usuario e atualiza a perspectiva da câmera
   useEffect(() => {
     watchPositionAsync(
       {
@@ -82,36 +84,38 @@ export default function App() {
       }
     );
   }, []);
-
+console.log(location)
+console.log(pontos)
   return (
     <View style={styles.container}>
       {location && (
+        //mostra a loc do usuario e os pontos de interesse, se disponivel...
         <MapView
           ref={mapRef}
           style={styles.map}
           initialRegion={{
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
+            latitude: location.coords.latitude ? location.coords.latitude:0,
+            longitude: location.coords.longitude ? location.coords.longitude:0,
             latitudeDelta: 0.005,
             longitudeDelta: 0.005,
           }}
         >
+          //se disponivel apresenta um marcador do ponto de interesse
           <Marker
             coordinate={{
-              latitude: location.coords.latitude,
-              longitude: location.coords.longitude,
+              latitude: location.coords.latitude ? location.coords.latitude:0,
+              longitude: location.coords.longitude ? location.coords.longitude:0, 
             }}
           />
           {pontos.map((ponto) => (
             <Marker
-              key={ponto.id}
+              key={ponto.id} // add uma chave única p ada elemento 
               coordinate={{
-                latitude: ponto.latitude,
-                longitude: ponto.longitude,
+                latitude: ponto.latitude ? ponto.latitude:0,
+                longitude: ponto.longitude ? ponto.longitude:0,
               }}
               image={require('./assets/sinal-wifi.png')}
             />
-            
           ))}
         </MapView>
       )}
