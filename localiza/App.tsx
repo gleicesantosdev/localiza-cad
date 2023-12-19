@@ -11,11 +11,22 @@ import {
 
 import { styles } from './styles';
 
-export default function App() {
-  const [location, setLocation] = useState<LocationObject | null>(null);
+//conexão com api 
+const fetchData = async () => {
+    const response = await fetch('http://dados.recife.pe.gov.br/ar/api/3/action/datastore_search?resource_id=1329a80b-c4a6-4ecd-b8e5-09ef75ffa576').then((res)=>res.json()).then((res)=>res.result.records);
+    return response; 
+};
 
+
+export default function App() {
+
+  const [pontos, setPontos] = useState([]); 
+
+  const [location, setLocation] = useState<LocationObject | null>(null);
+  // acessa o animatte Camera
   const mapRef = useRef <MapView>(null);
 
+  //permissao da camera
   async function requestLocationPermission() {
     const { granted } = await requestForegroundPermissionsAsync();
 
@@ -31,12 +42,22 @@ export default function App() {
       console.warn('Permissão de localização não concedida.');
     }
   }
+  // pega os pontos
+ useEffect( () => { 
+ async function pegarPonto(){
+  const dados = await fetchData()
+  setPontos(dados)
+}
+pegarPonto()
+ })
 
   useEffect(() => {
     requestLocationPermission();
   }, []);
+ 
+  console.log(pontos[0].latitude);
 
-  //observando rota 
+  //observando rota e precisao da mesma
   useEffect(() => {
     watchPositionAsync({
       accuracy: LocationAccuracy.Highest,
@@ -73,6 +94,15 @@ export default function App() {
         longitude: location.coords.longitude,
       }}
       />
+      {
+        pontos.map(ponto =>( <Marker
+          //objt p passar latitude e longitude 
+          coordinate={{
+            latitude: ponto.latitude,
+            longitude: ponto.longitude,
+          }}
+          />))
+      }
       </MapView>
       }
   </View>);
