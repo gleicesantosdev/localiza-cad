@@ -1,4 +1,4 @@
-# Localiza 
+# Conecta-liza 
 
 Objetivo:
 Demonstrar habilidades de desenvolvimento em React Native, integração com APIs de dados do Dados Recife e utilização de recursos como exibição de dados na tela e rastreamento de localização do usuário.
