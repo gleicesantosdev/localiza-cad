@@ -5,7 +5,7 @@ Demonstrar habilidades de desenvolvimento em React Native, integração com APIs
 
 Tema: Pontos de Conexão Wifi na cidade do Recife.
 
-Comandos Expo/ React Native para visualização do Localiza:
+Comandos Expo/ React Native para visualização do Conecta-izaz:
 
 - npm install = instala as dependências necessárias
 
